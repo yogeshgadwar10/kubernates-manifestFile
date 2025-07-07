@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: cloth-service
+    labels:
+        app: cloth-app
+
+spec:
+  ports:
+   - targetPort: 80
+     port: 80
+     protocol: TCP
+     name: http
+  
+  selector:
+     app: my-cloth-app
+     type: NodePort

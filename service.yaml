@@ -14,4 +14,4 @@ spec:
   
   selector:
      app: my-cloth-app
-     type: NodePort
+  type: NodePort

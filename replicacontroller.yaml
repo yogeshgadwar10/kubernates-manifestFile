@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: my-rc
+    labels:
+      app: rc-app
+spec:
+  template:
+    metadata:
+      name: my-rc
+      labels:
+         app: rc-app
+
+    spec:
+      containers:
+        - name: httpd-app
+          image: httpd
+          ports:
+           - containerPort: 80
+
+  replicas: 3
+  selector:
+    app: rc-app
+
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: rc-service
+  labels:
+    app: rc-app
+spec:
+  ports:
+   - targetPort: 80
+     port: 80
+     protocol: TCP
+     name: http
+
+  selector:
+    app: rc-app
+  type: NodePort
+

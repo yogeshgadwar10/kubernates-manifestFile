@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: my-deploy
+   labels:
+     app: my-demo
+spec:
+  template:
+    metadata:
+      labels:
+        app: my-demo
+
+    spec:
+      containers:
+       - name: nginx-app
+         image: nginx
+         ports:
+         - containerPort: 80
+  
+  replicas: 3
+  selector:
+     #matchlabels:
+    matchExpressions:
+     #- {key: app, operator: In, value: [my-ReplicaSet]}
+     - key: app
+       operator: In
+       values: [my-demo]  
+
+  strategy:
+    type: RollingUpdate    
+---
+apiVersion: v1
+kind: Service           
+metadata:
+   name: my-deploy
+   labels:
+    app: my-demo
+
+spec:
+  ports:
+  - targetPort: 80
+    port: 80
+    protocol: TCP
+    name: http
+
+
+  selector:
+     app: my-demo
+  type: NodePort        

@@ -1,28 +1,28 @@
+#
 apiVersion: v1
 kind: Pod
 metadata:
   name: my-pod
   labels:
-     app: my-cloth-app
+     app: my-cloth-service 
 spec:
   containers:
-   - name: nginx-app
-     image: nginx
-     ports:
-      - containerPort: 80
-    
-   - name: jave-app
-     image: tomcat:lates
-     ports:
-      - containerPort: 8080
-
-   - name: mysql-app 
-     image: mariadb:latest
-     ports:
-       - containerPort: 3306
-        
-     env:
-      - name: mysql_root_passwaord
-        value: "redhat"
       
-          
+    - name: nginx-app
+      image: nginx
+      ports:
+       - containerPort: 80
+
+    - name: java-app
+      image: tomcat:latest
+      ports:
+       - containerPort: 8080
+
+    - name: mysql-app
+      image: tomcat:latest
+      ports:
+       - containerPort: 3306
+    
+      env:
+       - name: MYSQL_ROOT_PASSWORD
+         value: "redhat"

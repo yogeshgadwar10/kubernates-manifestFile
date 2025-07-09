@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+   name: my-rs
+   labels:
+     app: my-ReplicaSet
+spec:
+  template:
+    metadata:
+      labels:
+        app: my-ReplicaSet
+
+    spec:
+      containers:
+       - name: nginx-app
+         image: nginx
+         ports:
+         - containerPort: 80
+  
+  replicas: 5
+  selector:
+     #matchlabels:
+    matchExpressions:
+     #- {key: app, operator: In, value: [my-ReplicaSet]}
+     - key: app
+       operator: In
+       values: [my-ReplicaSet]      
+---
+apiVersion: v1
+kind: Service           
+metadata:
+   name: my-rs
+   labels:
+    app: my-ReplicaSet
+
+spec:
+  ports:
+  - targetPort: 80
+    port: 80
+    protocol: TCP
+    name: http
+
+
+  selector:
+     app: my-ReplicaSet
+  type: NodePort        

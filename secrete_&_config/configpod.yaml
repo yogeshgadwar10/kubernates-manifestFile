@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-config-app
+  labels: 
+     app: my-config
+spec: 
+  containers:
+     - name: mysql-app
+       image: mysql:latest
+       ports: 
+        - containerPort: 3306
+
+       env: 
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: my-cred
+              key: PSWD
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+   name: my-cred
+data:
+  PSWD: "REDHAT"
+
+   

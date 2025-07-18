@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  myapp
+  labels:
+    app:  my-app
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app:  my-app
+    spec:
+     containers:
+      - name:  apache2-app
+        image:  nginx:latest
+        ports:
+         - containerPort: 80
+        resources:
+          requests:
+            cpu: 200m
+            memory: 64M
+          limits:
+            cpu: 500m
+            memory: 128M
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name:  my-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  myapp
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource 
+      resource:
+        name: cpu
+        target: 
+          type: Utilization
+          averageUtilization: 50

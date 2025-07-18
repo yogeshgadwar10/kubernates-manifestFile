@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata: 
+   name: my-ds-set
+   labels:
+     app: my-ds-app
+spec:
+  template:
+    metadata:
+      name: my-ds-set
+      labels: 
+        app: my-ds-app
+
+    spec:
+      containers:
+        - name: apache2
+          image: httpd
+          ports:
+           - containerPort: 80
+  
+  selector:
+    matchLabels:
+      app: my-ds-app

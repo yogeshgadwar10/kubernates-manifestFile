@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: my-product
+spec:
+  containers:
+    - name: nginx-app
+      image: nginx:latest
+      ports:
+       - containerPort: 80
+      resources:
+        request:
+          cpu: 100m
+          memory: 200M
+        limits:
+          cpu: 200m
+          memory: 400M
+
+    

@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  name: igress-resource
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+spec:
+  ingressClassName: ingress-nginx
+  rules:
+  - host: add8c3d9bb2f44c548c12606cb62bc1c-2062566170.us-east-1.elb.amazonaws.com 
+    http:
+     paths:
+     - path: /cloth
+       pathType: Prefix
+       backend:
+        service:
+          name: cloth-service-service
+          port:
+            number: 80
+
+     - path: /mobile
+       pathType: Prefix
+       backend:
+        service:
+          name:  mobile-app-service
+          port:
+           number: 80
+     
+
+         

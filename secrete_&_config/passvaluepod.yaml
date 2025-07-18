@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+   name: my-app
+   labels:
+     app: my-amazon-app
+spec:
+  containers: 
+    - name: database-app
+      image: mysql:latest
+      ports:
+       - containerPort: 80
+
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "pass@123"
+        - name: USER_NAME
+          value: "YOGESH"
+
+
+    

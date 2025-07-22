@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-ingres-app
+  labels:
+    app: cloth-app
+spec:
+  containers:
+  - name: cloth-app
+    image: nginx
+    ports:
+    - containerPort:  80
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cloth-app
+spec:
+  selector:
+    app: cloth-app
+  type: LoadBalancer
+  ports: 
+  - port: 80
+    targetPort: 80
